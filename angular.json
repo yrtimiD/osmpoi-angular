@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "yr",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -67,7 +67,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "osmpoi-angular:build"
+            "browserTarget": "osmpoi-angular:build",
+            "open": true
           },
           "configurations": {
             "production": {
@@ -121,6 +122,76 @@
             "production": {
               "devServerTarget": "osmpoi-angular:serve:production"
             }
+          }
+        }
+      }
+    },
+    "poi": {
+      "projectType": "library",
+      "root": "projects/poi",
+      "sourceRoot": "projects/poi/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/poi/tsconfig.lib.json",
+            "project": "projects/poi/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/poi/src/test.ts",
+            "tsConfig": "projects/poi/tsconfig.spec.json",
+            "karmaConfig": "projects/poi/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/poi/tsconfig.lib.json",
+              "projects/poi/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "overpass-api": {
+      "projectType": "library",
+      "root": "projects/overpass-api",
+      "sourceRoot": "projects/overpass-api/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/overpass-api/tsconfig.lib.json",
+            "project": "projects/overpass-api/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/overpass-api/src/test.ts",
+            "tsConfig": "projects/overpass-api/tsconfig.spec.json",
+            "karmaConfig": "projects/overpass-api/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/overpass-api/tsconfig.lib.json",
+              "projects/overpass-api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

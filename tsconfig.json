@@ -17,7 +17,21 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@osmpoi/poi": [
+        "projects/poi/src/public-api.ts"
+      ],
+      "@osmpoi/poi/*": [
+        "projects/poi/src/*"
+      ],
+      "@osmpoi/overpass-api": [
+        "projects/overpass-api/src/public-api.ts"
+      ],
+      "@osmpoi/overpass-api/*": [
+        "projects/overpass-api/src/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

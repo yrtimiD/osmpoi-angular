@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { MapViewComponent } from './map-view/map-view.component';
     MapViewComponent
   ],
   imports: [
+    LoggerModule.forRoot({level: NgxLoggerLevel.TRACE}),
     BrowserModule,
     AppRoutingModule,
     PoiModule,

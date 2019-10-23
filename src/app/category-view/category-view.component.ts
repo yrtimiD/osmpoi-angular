@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { NGXLogger } from 'ngx-logger';
 import { PoiService, Poi } from '@osmpoi/poi';
 
 @Component({
@@ -7,13 +8,19 @@ import { PoiService, Poi } from '@osmpoi/poi';
   styleUrls: ['./category-view.component.scss']
 })
 export class CategoryViewComponent implements OnInit {
-  public data: Poi[];
+  public pois: Poi[];
+  @Output() poiSelected = new EventEmitter<Poi>();
 
-  constructor(private poiService: PoiService) {
+  constructor(private log: NGXLogger, private poiService: PoiService) {
   }
 
   ngOnInit() {
-    this.data = this.poiService.getPois();
+    this.pois = this.poiService.getPois();
+  }
+
+  public onSelect(poi: Poi): void {
+    this.log.debug(`Selected ${poi.name}`);
+    this.poiSelected.emit(poi);
   }
 
 }

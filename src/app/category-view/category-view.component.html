@@ -1,5 +1,10 @@
 <ul>
-  <li *ngFor="let poi of pois">
-    <button (click)="onSelect(poi)">{{poi.categories}}</button>
+  <li *ngFor="let item of poisByCategory | keyvalue">
+    {{item.key}}
+    <ul>
+      <li *ngFor="let poi of item.value">
+        <button (click)="onSelect(poi)">{{poi.name}}</button>
+      </li>
+    </ul>
   </li>
 </ul>

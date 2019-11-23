@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 export interface Poi {
   name: string;
@@ -8,22 +9,10 @@ export interface Poi {
 
 @Injectable()
 export class PoiService {
-  private mockData: Poi[] = [
-    {
-      name: 'Fuel station',
-      categories: ['Transport', 'Shop'],
-      query: 'amenity=fuel'
-    },
-    {
-      name:'Shop',
-      categories: ['Shop'],
-      query: 'shop'
-    }
-  ];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public getPois(): Poi[] {
-    return this.mockData;
+  public getPois(): Promise<Poi[]> {
+    return this.http.get<Poi[]>('assets/poi.json').toPromise();
   }
 }

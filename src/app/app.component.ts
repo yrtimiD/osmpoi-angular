@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Poi } from '@osmpoi/poi';
 import { OverpassApiService, BBox, OverpassResponse } from '@osmpoi/overpass-api';
 import { NGXLogger } from 'ngx-logger';
+import { GeolocationService } from './geolocation.service';
 
 
 @Component({
-  selector: 'app-root',
+  selector: 'yr-app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: []
@@ -13,8 +14,19 @@ import { NGXLogger } from 'ngx-logger';
 export class AppComponent {
   private bbox: BBox;
   public searchResults: OverpassResponse;
-  constructor(private log: NGXLogger, private overpassApi: OverpassApiService) {
-    this.bbox = new BBox(32.156, 34.819, 32.172, 34.840);
+  constructor(private log: NGXLogger, geolocation: GeolocationService, private overpassApi: OverpassApiService) {
+    geolocation.getCurrentLocation().then((position) => this.initMap(position));
+  }
+
+  private initMap(position: Position) {
+    const boxRadius = 0.01;
+    this.bbox = new BBox(
+      position.coords.longitude - boxRadius,
+      position.coords.latitude - boxRadius,
+      position.coords.longitude + boxRadius,
+      position.coords.latitude + boxRadius
+    );
+    this.log.debug(`BBox: ${this.bbox}`);
   }
 
   public poiSelected(poi: Poi) {

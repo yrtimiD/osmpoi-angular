@@ -8,6 +8,7 @@ import { CategoryViewComponent } from './category-view/category-view.component';
 import { PoiModule } from '@osmpoi/poi';
 import { OverpassApiModule } from '@osmpoi/overpass-api';
 import { MapViewComponent } from './map-view/map-view.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MapViewComponent } from './map-view/map-view.component';
     BrowserModule,
     AppRoutingModule,
     PoiModule,
-    OverpassApiModule
+    OverpassApiModule,
+    LeafletModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

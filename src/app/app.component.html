@@ -1,4 +1,4 @@
 <yr-category-view (poiSelected)="poiSelected($event)"></yr-category-view>
 {{searchResults | json}}
-<!-- <yr-map-view></yr-map-view> -->
+<yr-map-view [centerLat]="location.latitude" [centerLon]="location.longitude"></yr-map-view>
 <router-outlet></router-outlet>

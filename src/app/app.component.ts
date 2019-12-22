@@ -13,12 +13,14 @@ import { GeolocationService } from './geolocation.service';
 })
 export class AppComponent {
   private bbox: BBox;
+  public location: Coordinates;
   public searchResults: OverpassResponse;
   constructor(private log: NGXLogger, geolocation: GeolocationService, private overpassApi: OverpassApiService) {
     geolocation.getCurrentLocation().then((position) => this.initMap(position));
   }
 
   private initMap(position: Position) {
+    this.location = position.coords;
     const boxRadius = 0.01;
     this.bbox = new BBox(
       position.coords.longitude - boxRadius,

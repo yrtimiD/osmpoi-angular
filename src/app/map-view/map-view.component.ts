@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
-declare var ol: any; //TODO: replace with proper import
+import { Component, OnInit, Input } from '@angular/core';
+import {latLng, tileLayer, MapOptions } from 'leaflet';
 
 @Component({
   selector: 'yr-map-view',
@@ -8,30 +7,21 @@ declare var ol: any; //TODO: replace with proper import
   styleUrls: ['./map-view.component.scss']
 })
 export class MapViewComponent implements OnInit {
-  map: any;
+  options: MapOptions;
+  @Input() centerLat: number;
+  @Input() centerLon: number;
 
   constructor() { }
 
 
   ngOnInit() {
-    this.map = new ol.Map({
-      target: 'map',
+    this.options = {
       layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
+        tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap contributors' })
       ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([73.8567, 18.5204]),
-        zoom: 8
-      })
-    });
-  }
+      zoom: 14,
+      center: latLng(this.centerLat, this.centerLon),
 
-  setCenter(lat: number, lon: number) {
-    const view = this.map.getView();
-    view.setCenter(ol.proj.fromLonLat([lon, lat]));
-    view.setZoom(8);
+    };
   }
-
 }
